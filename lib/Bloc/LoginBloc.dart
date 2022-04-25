@@ -8,17 +8,19 @@ class LoginBloc extends Cubit<LoginState> {
 
   LoginBloc(this.authenticator) : super(NormalState());
 
-  Future<void> login(final String username, final String password) async {
-    if (state is! NormalState) return;
+  Future<AuthenticatingClient?> login(final String username, final String password) async {
+    if (state is! NormalState) return null;
     emit(AttemptState());
     final token = await authenticator.authenticate(username, password);
     if (token == null) {
       emit(ErrorState("Invalid credentials"));
       await Future.delayed(const Duration(seconds: 1));
       emit(NormalState());
-      return;
+      return null;
     }
-    emit(LoggedInState(AuthenticatingClient(http.Client(), authenticator, username, password)));
+    final client = AuthenticatingClient(http.Client(), authenticator, username, password);
+    emit(LoggedInState(client));
+    return client;
   }
 }
 

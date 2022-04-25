@@ -1,7 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job/Bloc/JobListBloc.dart';
 import 'package:job/Bloc/LoginBloc.dart';
 import 'package:job/Network/authenticating_client.dart';
+import 'package:job/Screens/Job_list_screen.dart';
 import 'package:job/Screens/Registration_screen.dart';
 import 'package:job/Utils/Themes.dart';
 import 'package:http/http.dart' as http;
@@ -39,13 +41,13 @@ class LoginScreen extends StatelessWidget {
             }
             
             if (state is LoggedInState) {
-              Navigator.of(context).pushNamedAndRemoveUntil(newRouteName, (route) => false)
+              //Navigator.of(context).pushNamed("/job_list", arguments: JobListArguments(state.authenticatingClient));
               return const Center(
                 child: Text('Logged in'),
               );
             }
             return Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               width: double.infinity,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -119,9 +121,12 @@ class LoginScreen extends StatelessWidget {
                     height: 36,
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (bloc.state is NormalState) {
-                        bloc.login(_usernameController.text, _passwordController.text);
+                        await bloc.login(_usernameController.text, _passwordController.text);
+                        if (bloc.state is LoggedInState) {
+                          Navigator.of(context).pushNamed("/job_list", arguments: JobListArguments((bloc.state as LoggedInState).authenticatingClient));
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -156,7 +161,7 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'New to OnionChat? ',
+                        'New to JobSearch? ',
                         style: TextStyle(
                           fontFamily: MainFontFamily,
                           fontSize: 18,

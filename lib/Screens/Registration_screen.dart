@@ -200,64 +200,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 const SizedBox(
                   height: 36,
                 ),
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Attach resume',
-                        style: TextStyle(
-                          fontFamily: 'Nunito',
-                          fontWeight: FontWeight.w900,
-                          fontSize: 18,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: 200,
-                            height: 50,
-                            child: const Center(
-                              child: Text(
-                                "Resume name here",
-                                style: TextStyle(
-                                    fontFamily: 'Nunito',
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              print("Attach button clicked");
-                            },
-                            child: const Text(
-                              'Attach',
-                              style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.w900,
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              primary: Color(0xffFF9900),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 36,
-                ),
                 ElevatedButton(
                   onPressed: () {
                     print("Register");
